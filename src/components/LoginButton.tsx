@@ -1,12 +1,8 @@
 'use client';
-import WalletWrapper from './WalletWrapper';
+import WalletActions from './WalletActions';
 
 export default function LoginButton() {
   return (
-    <WalletWrapper
-      className="min-w-[90px]"
-      text="Log in"
-      withWalletAggregator={true}
-    />
+    <WalletActions className="min-w-[90px]" />
   );
 }

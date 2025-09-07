@@ -29,10 +29,27 @@ export default function TransactionWrapper({ address }: { address: Address }) {
 
   const handleError = (err: TransactionError) => {
     console.error('Transaction error:', err);
+    // In production, you might want to send this to an error tracking service
+    if (process.env.NODE_ENV === 'production') {
+      // Example: Sentry.captureException(err);
+    }
+    
+    // Show user-friendly error message
+    const errorMessage = err.message || 'Transaction failed. Please try again.';
+    alert(`Transaction Error: ${errorMessage}`);
   };
 
   const handleSuccess = (response: TransactionResponse) => {
     console.log('Transaction successful', response);
+    // In production, you might want to track successful transactions
+    if (process.env.NODE_ENV === 'production') {
+      // Example: analytics.track('transaction_success', { txHash: response.transactionReceipts?.[0]?.transactionHash });
+    }
+    
+    // Show success message to user
+    if (response.transactionReceipts?.[0]?.transactionHash) {
+      alert(`Transaction successful! Hash: ${response.transactionReceipts[0].transactionHash}`);
+    }
   };
 
   return (
